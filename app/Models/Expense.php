@@ -14,6 +14,7 @@ class Expense extends Model
         'company_id',
         'supplier_id',
         'invoice',
+        'description',
         'installment',
         'amount',
         'due_date',

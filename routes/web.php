@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('groups', GroupController::class);
     Route::resource('companies', CompanyController::class);
     Route::resource('suppliers', SupplierController::class);
+
+    Route::get('/expenses/import', [ExpenseController::class, 'importForm'])->name('expenses.import');
+    Route::post('/expenses/import', [ExpenseController::class, 'import'])->name('expenses.import.store');
     Route::resource('expenses', ExpenseController::class);
 
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
