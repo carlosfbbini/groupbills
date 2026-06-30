@@ -5,6 +5,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/reports');
@@ -21,6 +22,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('groups', GroupController::class);
     Route::resource('companies', CompanyController::class);
+    Route::resource('suppliers', SupplierController::class);
     Route::resource('expenses', ExpenseController::class);
 
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');

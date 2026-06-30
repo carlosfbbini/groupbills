@@ -29,6 +29,7 @@ class CompanyController extends Controller
         $validated = $request->validate([
             'group_id' => ['required', 'exists:groups,id'],
             'name' => ['required', 'string', 'max:255'],
+            'cnpj' => ['required', 'string', 'max:15'],
         ]);
 
         Company::query()->create($validated);
@@ -54,6 +55,7 @@ class CompanyController extends Controller
         $validated = $request->validate([
             'group_id' => ['required', 'exists:groups,id'],
             'name' => ['required', 'string', 'max:255'],
+            'cnpj' => ['required', 'string', 'max:15'],
         ]);
 
         $company->update($validated);

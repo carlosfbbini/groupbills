@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\Expense;
+use App\Models\Supplier;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -26,6 +27,7 @@ class ExpenseController extends Controller
     {
         return view('expenses.create', [
             'companies' => Company::query()->with('group')->orderBy('name')->get(),
+            'suppliers' => Supplier::query()->orderBy('name')->get(),
         ]);
     }
 
@@ -48,6 +50,7 @@ class ExpenseController extends Controller
         return view('expenses.edit', [
             'expense' => $expense,
             'companies' => Company::query()->with('group')->orderBy('name')->get(),
+            'suppliers' => Supplier::query()->orderBy('name')->get(),
         ]);
     }
 
@@ -71,6 +74,7 @@ class ExpenseController extends Controller
     {
         $validated = $request->validate([
             'company_id' => ['required', 'exists:companies,id'],
+            'supplier_id' => ['nullable', 'exists:suppliers,id'],
             'invoice' => ['required', 'string', 'max:255'],
             'installment' => ['required', 'integer', 'min:1'],
             'amount' => ['required', 'numeric', 'gt:0'],

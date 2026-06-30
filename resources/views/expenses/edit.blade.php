@@ -11,6 +11,15 @@
             </select>
         </div>
         <div>
+            <label class="mb-1 block text-sm">Fornecedor (opcional)</label>
+            <select name="supplier_id" class="w-full rounded border border-slate-300 px-3 py-2">
+                <option value="">Nenhum</option>
+                @foreach($suppliers as $supplier)
+                    <option value="{{ $supplier->id }}" @selected(old('supplier_id', $expense->supplier_id) == $supplier->id)>{{ $supplier->name }} — {{ $supplier->cnpj }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div>
             <label class="mb-1 block text-sm">Fatura</label>
             <input name="invoice" value="{{ old('invoice', $expense->invoice) }}" required class="w-full rounded border border-slate-300 px-3 py-2"/>
         </div>

@@ -18,6 +18,7 @@
                     <a href="{{ route('reports.index') }}" class="hover:underline">Relatórios</a>
                     <a href="{{ route('groups.index') }}" class="hover:underline">Grupos</a>
                     <a href="{{ route('companies.index') }}" class="hover:underline">Empresas</a>
+                    <a href="{{ route('suppliers.index') }}" class="hover:underline">Fornecedores</a>
                     <a href="{{ route('expenses.index') }}" class="hover:underline">Despesas</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
