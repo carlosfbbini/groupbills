@@ -8,6 +8,7 @@ use App\Models\Supplier;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class ExpenseController extends Controller
@@ -56,7 +57,7 @@ class ExpenseController extends Controller
 
     public function update(Request $request, Expense $expense): RedirectResponse
     {
-        $validated = $this->validatePayload($request);
+        $validated = $this->validatePayload($request, $expense);
 
         $expense->update($validated);
 
@@ -70,13 +71,21 @@ class ExpenseController extends Controller
         return redirect()->route('expenses.index')->with('status', 'Despesa removida com sucesso.');
     }
 
-    private function validatePayload(Request $request): array
+    private function validatePayload(Request $request, ?Expense $expense = null): array
     {
         $validated = $request->validate([
             'company_id' => ['required', 'exists:companies,id'],
             'supplier_id' => ['nullable', 'exists:suppliers,id'],
             'invoice' => ['required', 'string', 'max:255'],
-            'installment' => ['required', 'integer', 'min:1'],
+            'installment' => [
+                'required',
+                'integer',
+                'min:1',
+                Rule::unique('expenses')->where(fn ($q) => $q
+                    ->where('company_id', $request->input('company_id'))
+                    ->where('invoice', $request->input('invoice'))
+                )->ignore($expense?->id),
+            ],
             'amount' => ['required', 'numeric', 'gt:0'],
             'due_date' => ['required', 'date'],
             'status' => ['required', 'in:paid,pending'],

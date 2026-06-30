@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('group_id')->constrained()->cascadeOnDelete();
             $table->string('name');
-            $table->string('cnpj', 15)->unique('companies_cnpj_unique');
+            $table->string('cnpj', 18)->unique('companies_cnpj_unique');
             $table->timestamps();
         });
     }

@@ -14,6 +14,7 @@ class Company extends Model
     protected $fillable = [
         'group_id',
         'name',
+        'cnpj',
     ];
 
     public function group(): BelongsTo

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('status', ['paid', 'pending'])->default('pending');
             $table->date('paid_at')->nullable();
             $table->timestamps();
+            $table->unique(['company_id', 'invoice', 'installment'], 'expenses_company_id_invoice_installment_unique');
 
             $table->index(['status', 'due_date']);
         });
